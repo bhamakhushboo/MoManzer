@@ -1,0 +1,7 @@
+{
+  "name": "MoManzer",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
