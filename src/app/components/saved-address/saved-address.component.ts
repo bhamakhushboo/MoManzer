@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NativeGeocoderOptions, NativeGeocoder, NativeGeocoderResult } from '@awesome-cordova-plugins/native-geocoder/ngx';
+import {
+  NativeGeocoderOptions,
+  NativeGeocoder,
+  NativeGeocoderResult,
+} from '@awesome-cordova-plugins/native-geocoder/ngx';
 import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
@@ -8,36 +12,41 @@ import { Geolocation } from '@capacitor/geolocation';
   styleUrls: ['./saved-address.component.scss'],
 })
 export class SavedAddressComponent implements OnInit {
-
   public address_value: string;
 
-  constructor(private nativeGeocoder: NativeGeocoder) { }
+  constructor(private nativeGeocoder: NativeGeocoder) {}
 
   ngOnInit() {
-    this.address_value = localStorage.getItem("address");
+    this.address_value = localStorage.getItem('address');
   }
 
   public async setAddressToCurrentLocation(): Promise<void> {
-
     const options: NativeGeocoderOptions = {
       useLocale: true,
-      maxResults: 5
+      maxResults: 5,
     };
 
     const coordinates = await Geolocation.getCurrentPosition();
 
-    console.log('Current position:', coordinates);
-
-    this.nativeGeocoder.reverseGeocode(coordinates.coords.latitude, coordinates.coords.longitude, options)
-    .then((result: NativeGeocoderResult[]) => {
-      const firstResult = result[0];
-      console.log(firstResult);
-      // this.deliveryForm.patchValue({
-      //   customer: {
-      //     address: `${firstResult.locality} ${firstResult.subLocality} ${firstResult.countryName}, ${firstResult.postalCode}`
-      //   }
-      // })
-    }).catch((error: any) => console.log(error));
+    this.nativeGeocoder
+      .reverseGeocode(
+        coordinates.coords.latitude,
+        coordinates.coords.longitude,
+        options
+      )
+      .then((result: NativeGeocoderResult[]) => {
+        const firstResult = result[0];
+        // console.log(firstResult);
+        //  this.address_value = `${firstResult.locality} ${firstResult.subLocality} ${firstResult.countryName}, ${firstResult.postalCode}`
+        this.address_value =
+          firstResult.locality +
+          ' ' +
+          firstResult.subLocality +
+          ' ' +
+          firstResult.countryName +
+          ' ' +
+          firstResult.postalCode;
+      })
+      .catch((error: any) => console.log(error));
   }
-
 }

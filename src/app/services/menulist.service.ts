@@ -49,5 +49,9 @@ export class MenulistService {
     return this.http['put'](`${this.baseUrl}customer/${customer.id}`, customer);
   }
 
+  getOrder(id: string) {
+    return this.http['get'](`${this.baseUrl}order/${id}`);
+  } 
+
 
 }
