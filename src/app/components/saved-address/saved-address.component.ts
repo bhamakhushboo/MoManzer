@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import {
   NativeGeocoderOptions,
   NativeGeocoder,
   NativeGeocoderResult,
 } from '@awesome-cordova-plugins/native-geocoder/ngx';
 import { Geolocation } from '@capacitor/geolocation';
+
+@Injectable({ providedIn: 'root' })
 
 @Component({
   selector: 'app-saved-address',

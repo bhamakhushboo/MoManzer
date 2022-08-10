@@ -8,6 +8,10 @@ import { Component } from '@angular/core';
 export class AppComponent {
 
   public loggedIn = false;
+  public cartItem: string[] = [];
 
-  constructor() {}
+  constructor() {
+    localStorage.setItem("cart", JSON.stringify(this.cartItem));
+
+  }
 }

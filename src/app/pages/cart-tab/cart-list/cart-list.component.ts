@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
+import { Menu } from 'src/app/interfaces/menu';
+import { CartTabPage } from '../cart-tab.page';
+
+@Injectable({
+  providedIn: 'root'
+})
 
 @Component({
   selector: 'app-cart-list',
@@ -7,8 +13,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartListComponent implements OnInit {
 
-  constructor() { }
+  public productsInCart: Menu[] = [];
+  constructor(private carttab: CartTabPage) {
+    this.productsInCart = this.carttab.productsInCart;
+   }
 
-  ngOnInit() {}
+  ngOnInit()
+  {
+    this.productsInCart = this.carttab.productsInCart;
+  }
 
 }

@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Menu } from 'src/app/interfaces/menu';
 import { CacheKey, CachingService } from 'src/app/services/caching.service';
-import { filter } from 'rxjs/operators';
 import { MenulistService } from 'src/app/services/menulist.service';
 import { ProfileTabPage } from '../profile-tab/profile-tab.page';
 import { IonButton } from '@ionic/angular';
 import { LoginComponent } from 'src/app/components/login/login.component';
 import { AppComponent } from 'src/app/app.component';
+import { CartListComponent } from '../cart-tab/cart-list/cart-list.component';
 
 @Component({
   providers: [ProfileTabPage],
@@ -22,6 +22,7 @@ export class ViewProductPage implements OnInit {
   public add_btn: IonButton;
   public logincomponent: LoginComponent;
   public loggedIn: boolean;
+  public cartItem: string[] = [];
 
   variants = [
     {
@@ -72,7 +73,8 @@ export class ViewProductPage implements OnInit {
     private cachingService: CachingService,
     private menulistservice: MenulistService,
     public profile: ProfileTabPage,
-    public appcomponent: AppComponent
+    public appcomponent: AppComponent,
+    private cardlistcomponent: CartListComponent
   ) {
     if (this.appcomponent.loggedIn) {
       this.btn_txt = 'Add to Cart';
@@ -95,5 +97,12 @@ export class ViewProductPage implements OnInit {
           });
       }
     });
+  }
+
+  AddToCart(id){
+    this.cartItem = JSON.parse(localStorage.getItem("cart"));
+    this.cartItem.push(id);
+    localStorage.setItem("cart", JSON.stringify(this.cartItem));
+    this.cardlistcomponent.ngOnInit();
   }
 }

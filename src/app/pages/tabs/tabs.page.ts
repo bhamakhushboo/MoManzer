@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
+import { CartListComponent } from '../cart-tab/cart-list/cart-list.component';
+import { CartTabPage } from '../cart-tab/cart-tab.page';
+
+@Injectable({
+  providedIn: 'root'
+})
 
 @Component({
   selector: 'app-tabs',
@@ -7,6 +13,12 @@ import { Component } from '@angular/core';
 })
 export class TabsPage {
 
-  constructor() {}
+  constructor(private carttab: CartTabPage,
+    private cartlist: CartListComponent) {}
+
+  refreshCart(){
+    this.carttab.ngOnInit();
+    this.cartlist.ngOnInit();
+  }
 
 }

@@ -12,7 +12,7 @@ export class OrdersHistoryComponent implements OnInit {
 
   public order: Order;
   public orders: string[];
-  public orderproduct: Menu[];
+  public orderproduct: Menu[] = [];
 
   constructor(private menulistservice: MenulistService) {}
 
@@ -24,7 +24,6 @@ export class OrdersHistoryComponent implements OnInit {
 
         this.orders = this.order['itemid'];
         for (let i = 0; i < this.orders.length; i++ ) {
-          //console.log(this.orders[i]);
 
           this.menulistservice.getProduct(this.orders[i]).subscribe((result) => {
             const productresult = result as Menu;
@@ -35,8 +34,8 @@ export class OrdersHistoryComponent implements OnInit {
           });
 
         }
-        
+
       });
-      
+
   }
 }
